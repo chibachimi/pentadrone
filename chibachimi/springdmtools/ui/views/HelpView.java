@@ -35,6 +35,8 @@ public class HelpView extends VerticalLayout {
                 
                 To create a new game, press the "Create A New Game" button. This will add a game to the list.
                 
+                You can export games to your Downloads/ folder using the "Export Games" button.
+                
                 To edit a game, new or not, select it in the grid then press the "Edit Selected Game" button.
                 This will bring up a submenu where you can change the name, add or remove players, and add or remove characters.
                 Save your game pressing the "Save" button, cancel any changes using the "Cacnel" button.
