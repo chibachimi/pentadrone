@@ -8,4 +8,4 @@ This program *uses your computer's storage* to store all of the information you 
 1. You will need Java 21 or above.
 2. Go to the Releases page and download the latest release .jar file
 3. You may be able to double click the jar file and it will fun from there. If not, open your terminal, move to where the jar file was downloaded, then use
-` java -jar pentadone1.0.0.jar `
+` java -jar pentadone1.1.1.jar `
