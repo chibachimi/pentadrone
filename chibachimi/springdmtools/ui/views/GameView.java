@@ -2,6 +2,7 @@ package com.chibachimi.springdmtools.ui.views;
 
 import com.chibachimi.springdmtools.filehandling.GameReader;
 import com.chibachimi.springdmtools.gamedata.GameNode;
+import com.chibachimi.springdmtools.ui.components.HelpDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -27,6 +28,8 @@ public class GameView extends VerticalLayout {
         GameReader reader = new GameReader();
         this.editor = editor;
 
+        Button buttonHelp = makeHelpButton();
+
         buttonAdd = new Button(
                 "Create A New Game",
                 VaadinIcon.PLUS.create(),
@@ -51,7 +54,7 @@ public class GameView extends VerticalLayout {
             if (e.getFirstSelectedItem().isPresent()) selectedGame = e.getFirstSelectedItem().get();
         });
 
-        add(grid, buttonHolder, editor);
+        add(buttonHelp, grid, buttonHolder, editor);
     }
 
     private void editGame() {
@@ -64,5 +67,27 @@ public class GameView extends VerticalLayout {
     private void createGame() {
         gameList.add(new GameNode("New Game"));
         grid.getDataProvider().refreshAll();
+    }
+
+    private Button makeHelpButton() {
+        HelpDialog helpDialog = new HelpDialog(
+                "Games",
+                """
+                This will display a grid of games taken from the games/ folder.
+                
+                To create a new game, press the "Create A New Game" button. This will add a game to the list.
+                
+                You can export games to your Downloads/ folder using the "Export Games" button.
+                
+                To edit a game, new or not, select it in the grid then press the "Edit Selected Game" button.
+                This will bring up a submenu where you can change the name, add or remove players, and add or remove characters.
+                Save your game pressing the "Save" button, cancel any changes using the "Cacnel" button.
+                To delete the game, press the "Delete Game" button, which will then pop up a confirmation.
+                *This is ireversable*.
+                
+                Games are stored as json files in your games/ folder.
+                """
+        );
+        return new Button("Help", e -> helpDialog.getDialog().open());
     }
 }

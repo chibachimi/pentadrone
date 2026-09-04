@@ -2,6 +2,7 @@ package com.chibachimi.springdmtools.ui.views;
 
 import com.chibachimi.springdmtools.filehandling.GameReader;
 import com.chibachimi.springdmtools.gamedata.GameNode;
+import com.chibachimi.springdmtools.ui.components.HelpDialog;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Focusable;
 import com.vaadin.flow.component.button.Button;
@@ -20,13 +21,19 @@ import java.util.Optional;
 @Route("/initiative")
 public class InitiativeView extends VerticalLayout {
 
-    int itemCount;
     private Optional<Character> optionalCharacter;
     ArrayList<Character> characters = new ArrayList<>();
 
     public InitiativeView() {
+        Button buttonHelp = makeHelpButton();
+
         GameReader reader = new GameReader();
         var games = reader.getGamesList();
+
+
+        // Add an empty game first. This is loaded by default.
+        GameNode empty = new GameNode("Empty");
+        games.addFirst(empty);
 
         Grid<Character> initGrid = new Grid<>(Character.class, false);
         Binder<Character> binder = new Binder<>(Character.class);
@@ -68,6 +75,9 @@ public class InitiativeView extends VerticalLayout {
         initGrid.addSelectionListener(e ->
             optionalCharacter = e.getFirstSelectedItem()
         );
+        // Default set the grid to this empty game
+        this.characters = new ArrayList<>(empty.getCharactersAsCharacters());
+        initGrid.setItems(this.characters);
 
         setAlignItems(Alignment.CENTER);
 
@@ -81,18 +91,39 @@ public class InitiativeView extends VerticalLayout {
             }));
         }
 
-        add(gameButtonHolder, initGrid);
+        HorizontalLayout interactionHolder = new HorizontalLayout(
+                new Button(new Button("Add New Character", e -> {
+                    characters.add(Character.tempChar("New Character"));
+                    initGrid.getDataProvider().refreshAll();
+                })),
+                new Button(new Button("Remove Selected Character", e -> {
+                    optionalCharacter.ifPresent(this.characters::remove);
+                    initGrid.getDataProvider().refreshAll();
+                }))
+        );
 
-        add(new Button("Add New Character", e -> {
-            itemCount++;
-            characters.add(Character.tempChar("Item " + itemCount));
-            initGrid.getDataProvider().refreshAll();
-        }));
+        add(buttonHelp, gameButtonHolder, initGrid, interactionHolder);
+    }
 
-        add(new Button("Remove Selected Character", e -> {
-            itemCount--;
-            optionalCharacter.ifPresent(this.characters::remove);
-            initGrid.getDataProvider().refreshAll();
-        }));
+    private Button makeHelpButton() {
+        HelpDialog helpDialog = new HelpDialog(
+                "Initiative",
+                """
+                        This will display a line of buttons and a grid.
+                        
+                        By default, an empty list is loaded.
+                        
+                        To populate the grid, select a button with one of your games on it.
+                        This will place all of the characters from your game onto the grid. By default, everyone has an initiative of zero."
+                        
+                        Double click on a character to change their initiative value or their name. Once done, press the arrows above the initiative column twice.
+                        This will auto sort everyone listed.
+                        
+                        
+                        To add a new character (or monster), click the "Add A New Character" button.
+                        To remove a character, click on a character on the grid, then press the the "Remove Selected Character" button.
+                        """
+        );
+        return new Button("Help", e -> helpDialog.getDialog().open());
     }
 }
