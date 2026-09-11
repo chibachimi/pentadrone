@@ -2,6 +2,7 @@ package com.chibachimi.springdmtools.ui.views;
 
 import com.chibachimi.springdmtools.filehandling.GameReader;
 import com.chibachimi.springdmtools.gamedata.GameNode;
+import com.chibachimi.springdmtools.ui.components.GameEditor;
 import com.chibachimi.springdmtools.ui.components.HelpDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
