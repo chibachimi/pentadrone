@@ -2,6 +2,7 @@ package com.chibachimi.springdmtools.ui.views;
 
 import com.chibachimi.springdmtools.filehandling.GameReader;
 import com.chibachimi.springdmtools.gamedata.GameNode;
+import com.chibachimi.springdmtools.ui.components.GameEditor;
 import com.chibachimi.springdmtools.ui.components.HelpDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -17,6 +18,7 @@ public class GameView extends VerticalLayout {
     HorizontalLayout buttonHolder;
     Button buttonAdd;
     Button buttonEdit;
+    Button buttonExport;
 
     GameNode selectedGame = null;
 
@@ -39,6 +41,12 @@ public class GameView extends VerticalLayout {
                 "Edit Selected Game",
                 VaadinIcon.BOOK.create(),
                 e -> editGame()
+        );
+        buttonExport = new Button(
+                "Export Selected Game",
+                VaadinIcon.CLIPBOARD.create(),
+                e -> exportGame()
+
         );
         buttonHolder = new HorizontalLayout(buttonAdd, buttonEdit);
 
@@ -67,6 +75,14 @@ public class GameView extends VerticalLayout {
     private void createGame() {
         gameList.add(new GameNode("New Game"));
         grid.getDataProvider().refreshAll();
+    }
+
+    private void exportGame() {
+        // TODO How do we do this???
+        /*
+         * Let the GameWriter handle everything?
+         * Or do we make a GameExporter?
+         */
     }
 
     private Button makeHelpButton() {
