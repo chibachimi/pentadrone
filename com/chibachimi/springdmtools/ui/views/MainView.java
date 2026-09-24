@@ -1,6 +1,5 @@
 package com.chibachimi.springdmtools.ui.views;
 
-import com.chibachimi.springdmtools.experimental.DiceView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
