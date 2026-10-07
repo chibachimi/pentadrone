@@ -1,5 +1,6 @@
 package com.chibachimi.springdmtools.ui.views;
 
+import com.chibachimi.springdmtools.experimental.TableView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -27,6 +28,8 @@ public class MainView extends VerticalLayout {
         );
         var f4 = new Button("Dice",
                 e -> UI.getCurrentOrThrow().navigate(DiceView.class));
+        var f5 = new Button("Table Test",
+                e -> UI.getCurrentOrThrow().navigate(TableView.class));
 
         // TODO Rename this?
         var closeBtn = new Button("Close Process");
@@ -37,6 +40,6 @@ public class MainView extends VerticalLayout {
 
         setAlignItems(Alignment.CENTER);
 
-        add(f1, f2, f3, f4, closeBtn);
+        add(f1, f2, f3, f4, f5, closeBtn);
     }
 }

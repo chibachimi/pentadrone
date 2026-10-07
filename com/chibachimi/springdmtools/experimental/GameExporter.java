@@ -21,6 +21,7 @@ public class GameExporter {
     }
 
     // TODO Test
+    // TODO Actually change this to copy all internal files and then put it into the Downloads folder?
     public void exportGame() {
         String downloadPath = String.valueOf(
                 Paths.get(
