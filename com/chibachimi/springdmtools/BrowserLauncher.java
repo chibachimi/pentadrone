@@ -16,17 +16,13 @@ public class BrowserLauncher implements ApplicationListener<ApplicationReadyEven
     @Value("${server.port}")
     int port;
 
-    private final boolean start = false;
-
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-
-        if (!start) return;
-        try {
-            Desktop.getDesktop().browse(new URI(loadRandomPort()));
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Desktop.getDesktop().browse(new URI(loadRandomPort()));
+//        } catch (IOException | URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private String loadRandomPort() {
