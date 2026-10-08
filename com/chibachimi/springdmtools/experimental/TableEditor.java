@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @SpringComponent
 @UIScope
 public class TableEditor extends VerticalLayout {
-    Table table;
+    TableNode tableNode;
 
     ArrayList<TableEntry> entries;
     // Editor components
@@ -64,15 +64,15 @@ public class TableEditor extends VerticalLayout {
         add(entryHolder);
     }
 
-    public void editTable(Table t) {
+    public void editTable(TableNode t) {
         if (t== null) {
             setVisible(false);
             return;
         }
-        this.table = t;
+        this.tableNode = t;
 
         // Set all the components with the current table
-        fieldTitle.setValue(this.table.title);
+        fieldTitle.setValue(this.tableNode.name);
 
         setVisible(true);
     }
@@ -82,7 +82,7 @@ public class TableEditor extends VerticalLayout {
     }
 
     private void cancel() {
-        this.table = null;
+        this.tableNode = null;
 
         setVisible(false);
     }

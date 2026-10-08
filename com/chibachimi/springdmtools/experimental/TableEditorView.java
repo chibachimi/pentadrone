@@ -7,11 +7,5 @@ import com.vaadin.flow.router.Route;
 public class TableEditorView extends VerticalLayout {
 
     public TableEditorView() {
-        Table testTable = Table.newDefaultTable();
-
-        TableEditor editor = new TableEditor();
-        editor.editTable(testTable);
-
-        add(editor);
     }
 }

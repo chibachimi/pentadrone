@@ -1,40 +1,41 @@
 package com.chibachimi.springdmtools.gamedata;
 
 import com.chibachimi.springdmtools.createdfiles.Defaults;
+import com.chibachimi.springdmtools.experimental.NodeWriter;
+import com.chibachimi.springdmtools.experimental.NodeItem;
 import com.chibachimi.springdmtools.filehandling.GameDeleter;
-import com.chibachimi.springdmtools.filehandling.GameWriter;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameNode {
+public class GameNode extends NodeItem {
 
-    private String name;
     private ArrayList<String> playerList;
     private ArrayList<String> characterList;
-    private String path;
 
     public GameNode(String name) {
-        this.name = name;
+        super(name);
         this.playerList = new ArrayList<>();
         this.characterList = new ArrayList<>();
     }
 
-    public void addPlayer(String playerName) {
-        this.playerList.add(playerName);
+    // TODO This naming kinda blows, doesn't it?
+    @Override
+    public void save() {
+        NodeWriter writer = new NodeWriter(this);
+        writer.save();
     }
 
-    public final void save(String n, ArrayList<String> pn, ArrayList<String> cn) {
-       // TODO Skip checks for now, just write. This isn't very smart but it will get smarterer later
+    public final void prepare(String n, ArrayList<String> pn, ArrayList<String> cn) {
         changeName(n);
-        this.path = String.valueOf(Paths.get(
+        super.path = String.valueOf(Paths.get(
                 Defaults.getGamesPathAsString(),
-                this.name + ".json"
+                super.name + ".json"
         ));
         changePlayerNames(pn);
         changeCharacters(cn);
-        GameWriter writer = new GameWriter().saveGame(this);
+        save();
     }
 
     private void changePlayerNames(List<String> list) {
@@ -45,9 +46,14 @@ public class GameNode {
         this.characterList = new ArrayList<>(list);
     }
 
+    public void addPlayer(String playerName) {
+        this.playerList.add(playerName);
+    }
+
     // Delete itself from the disk
+    @Override
     public void delete() {
-        GameDeleter deleter = new GameDeleter(this.path);
+        GameDeleter deleter = new GameDeleter(super.getPath());
         deleter.delete();
     }
 
@@ -61,22 +67,22 @@ public class GameNode {
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public String getPath() {
-        return path;
+        return super.getPath();
     }
 
-    public void setPath(String pathAsString) {
-        this.path = pathAsString;
+    public void setPath(String path) {
+        super.setPath(path);
     }
 
     public String getPlayerNamesAsString() {
         StringBuilder builder = new StringBuilder();
         // I think this is redundant bc Java checks for us
         if (playerList.isEmpty() || playerList == null) {
-            builder.append("");
+            return "";
         }
         for (String player : playerList) {
             builder.append(player).append(", ");
