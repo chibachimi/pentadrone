@@ -1,5 +1,8 @@
 package com.chibachimi.springdmtools.experimental;
 
+import com.chibachimi.springdmtools.filehandling.NodeWriter;
+import com.chibachimi.springdmtools.logic.NodeItem;
+
 import java.util.ArrayList;
 
 // TODO Extrapolate from this single table
@@ -50,10 +53,16 @@ public class TableNode extends NodeItem {
         return entries;
     }
 
-    // TODO Down here we prep things for saving
+    // TODO Just copying what we do from GameNode. Not the best but it works!
+    // TODO Do this later once we figure out all we need for tables
+    public void savePrep() {
+
+    }
+
     @Override
     public void save() {
-
+        NodeWriter writer = new NodeWriter(this);
+        writer.save();
     }
 
     @Override

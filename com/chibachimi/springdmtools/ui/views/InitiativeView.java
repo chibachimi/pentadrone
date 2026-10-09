@@ -1,6 +1,7 @@
 package com.chibachimi.springdmtools.ui.views;
 
-import com.chibachimi.springdmtools.filehandling.GameReader;
+import com.chibachimi.springdmtools.filehandling.NodeReader;
+import com.chibachimi.springdmtools.filehandling.NodeType;
 import com.chibachimi.springdmtools.gamedata.GameNode;
 import com.chibachimi.springdmtools.logic.DiceLogic;
 import com.chibachimi.springdmtools.ui.components.HelpDialog;
@@ -31,7 +32,8 @@ public class InitiativeView extends VerticalLayout {
     public InitiativeView() {
         Button buttonHelp = makeHelpButton();
 
-        GameReader reader = new GameReader();
+        NodeReader reader = new NodeReader();
+        reader.loadFiles(NodeType.GAME);
         var games = reader.getGamesList();
 
 

@@ -17,19 +17,12 @@ public class Defaults {
     private static Path headPath;
     private static Path gamesDir;
 
-    private static String downloads;
-
     @Autowired
     ApplicationContext context;
 
     public Defaults(OsChecker checker) {
         os = checker.getOs();
 
-        downloads = String.valueOf(
-                Paths.get(
-                        System.getProperty("user.home"),
-                "Downloads"
-        ));
 
         headPath = defaultFileStorage();
         gamesDir = Paths.get(String.valueOf(headPath), "games");
@@ -78,6 +71,14 @@ public class Defaults {
     }
 
     public static String getDownloadsAsString() {
-        return downloads;
+        return String.valueOf(
+                Paths.get(
+                        System.getProperty("user.home"),
+                        "Downloads"
+                ));
+    }
+
+    public static String getHeadPathAsString() {
+        return String.valueOf(headPath);
     }
 }

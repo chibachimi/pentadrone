@@ -1,6 +1,7 @@
 package com.chibachimi.springdmtools.ui.views;
 
-import com.chibachimi.springdmtools.filehandling.GameReader;
+import com.chibachimi.springdmtools.filehandling.NodeReader;
+import com.chibachimi.springdmtools.filehandling.NodeType;
 import com.chibachimi.springdmtools.gamedata.GameNode;
 import com.chibachimi.springdmtools.ui.components.GameEditor;
 import com.chibachimi.springdmtools.ui.components.HelpDialog;
@@ -27,7 +28,9 @@ public class GameView extends VerticalLayout {
     protected final GameEditor editor;
 
     public GameView(GameEditor editor) {
-        GameReader reader = new GameReader();
+        NodeReader reader = new NodeReader();
+        reader.loadFiles(NodeType.GAME);
+
         this.editor = editor;
 
         Button buttonHelp = makeHelpButton();
@@ -51,7 +54,6 @@ public class GameView extends VerticalLayout {
         buttonHolder = new HorizontalLayout(buttonAdd, buttonEdit);
 
         gameList = reader.getGamesList();
-        for (GameNode game : gameList) System.out.println(game.getName());
 
         grid = new Grid<>(GameNode.class, false);
         // IntelliJ says this isn't used but don't trust it.

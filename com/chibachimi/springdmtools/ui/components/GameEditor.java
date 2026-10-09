@@ -64,7 +64,7 @@ public class GameEditor extends VerticalLayout {
     }
 
     private void save() {
-        game.prepare(fieldName.getValue(), getNamesAsList(), getValuesAsList(fieldCharacters));
+        game.savePrep(fieldName.getValue(), getNamesAsList(), getValuesAsList(fieldCharacters));
         Dialog dialogSaveAlert = makeDialogSaveAlert();
         dialogSaveAlert.open();
     }

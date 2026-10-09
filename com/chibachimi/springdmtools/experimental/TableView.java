@@ -48,11 +48,6 @@ public class TableView extends VerticalLayout {
                 .bind(TableEntry::getEntryTwo, TableEntry::setEntryTwo);
         colField.setEditorComponent(fieldField);
 
-        // TODO Do we need this?
-//        tableGrid.addItemClickListener(singleClickEvent -> {
-//            selectedEntry = singleClickEvent.getItem();
-//        });
-
         tableGrid.addItemDoubleClickListener(clickEvent -> {
             editor.editItem(clickEvent.getItem());
             Component editorComponent = clickEvent.getColumn().getEditorComponent();

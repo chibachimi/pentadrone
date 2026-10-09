@@ -1,9 +1,9 @@
 package com.chibachimi.springdmtools.gamedata;
 
 import com.chibachimi.springdmtools.createdfiles.Defaults;
-import com.chibachimi.springdmtools.experimental.NodeWriter;
-import com.chibachimi.springdmtools.experimental.NodeItem;
-import com.chibachimi.springdmtools.filehandling.GameDeleter;
+import com.chibachimi.springdmtools.filehandling.NodeDeleter;
+import com.chibachimi.springdmtools.filehandling.NodeWriter;
+import com.chibachimi.springdmtools.logic.NodeItem;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class GameNode extends NodeItem {
         writer.save();
     }
 
-    public final void prepare(String n, ArrayList<String> pn, ArrayList<String> cn) {
+    public final void savePrep(String n, ArrayList<String> pn, ArrayList<String> cn) {
         changeName(n);
         super.path = String.valueOf(Paths.get(
                 Defaults.getGamesPathAsString(),
@@ -53,7 +53,9 @@ public class GameNode extends NodeItem {
     // Delete itself from the disk
     @Override
     public void delete() {
-        GameDeleter deleter = new GameDeleter(super.getPath());
+//        GameDeleter deleter = new GameDeleter(super.getPath());
+//        deleter.delete();
+        NodeDeleter deleter = new NodeDeleter(super.getPath());
         deleter.delete();
     }
 
