@@ -18,11 +18,11 @@ public class BrowserLauncher implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-//        try {
-//            Desktop.getDesktop().browse(new URI(loadRandomPort()));
-//        } catch (IOException | URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Desktop.getDesktop().browse(new URI(loadRandomPort()));
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String loadRandomPort() {

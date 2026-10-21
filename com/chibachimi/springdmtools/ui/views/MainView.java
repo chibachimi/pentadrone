@@ -1,6 +1,7 @@
 package com.chibachimi.springdmtools.ui.views;
 
-import com.chibachimi.springdmtools.experimental.TableView;
+import com.chibachimi.springdmtools.experimental.ToolBoxView;
+import com.chibachimi.springdmtools.nodehandling.NodeExporter;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,30 +17,38 @@ public class MainView extends VerticalLayout {
     private ApplicationContext context;
 
     // IntelliJ says this isn't used, but it certainly is!
+    @Autowired
     public MainView() {
-        var f1 = new Button( "Help",
+        var btnHelp = new Button( "Help",
                 e -> UI.getCurrentOrThrow().navigate(HelpView.class)
         );
-        var f2 = new Button( "Games",
+        var btnGames = new Button( "Games",
                 e -> UI.getCurrentOrThrow().navigate(GameView.class)
         );
-        var f3 = new Button( "Initiative Manager",
-                e -> UI.getCurrentOrThrow().navigate(InitiativeView.class)
-        );
-        var f4 = new Button("Dice",
-                e -> UI.getCurrentOrThrow().navigate(DiceView.class));
-        var f5 = new Button("Table Test",
-                e -> UI.getCurrentOrThrow().navigate(TableView.class));
+        Button btnTools = new Button("Tools",
+                e -> UI.getCurrentOrThrow().navigate(ToolBoxView.class));
+//        var f3 = new Button( "Initiative Manager",
+//                e -> UI.getCurrentOrThrow().navigate(InitiativeView.class)
+//        );
+//        var f4 = new Button("Dice",
+//                e -> UI.getCurrentOrThrow().navigate(DiceView.class));
+//        var f5 = new Button("Table Test",
+//                e -> UI.getCurrentOrThrow().navigate(TableMasterView.class));
+        var btnExport = new Button("Export Data",
+                e -> {
+                    NodeExporter exporter = new NodeExporter();
+                    exporter.exportAll();
+                });
 
-        // TODO Rename this?
-        var closeBtn = new Button("Close Process");
-        closeBtn.addClickListener(e -> {
-            System.out.println("Exiting");
-            SpringApplication.exit(context);
-        });
+        var btnClose = new Button("Close Process",
+                e -> {
+                    System.out.println("Exiting.");
+                    SpringApplication.exit(context);
+                });
 
         setAlignItems(Alignment.CENTER);
 
-        add(f1, f2, f3, f4, f5, closeBtn);
+//        add(f1, f2, f3, f4, f5, f6, closeBtn);
+        add(btnHelp, btnGames, btnTools, btnExport, btnClose);
     }
 }

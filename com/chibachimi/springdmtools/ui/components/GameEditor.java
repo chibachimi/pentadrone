@@ -1,6 +1,6 @@
 package com.chibachimi.springdmtools.ui.components;
 
-import com.chibachimi.springdmtools.gamedata.GameNode;
+import com.chibachimi.springdmtools.node.GameNode;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -64,7 +64,7 @@ public class GameEditor extends VerticalLayout {
     }
 
     private void save() {
-        game.prepare(fieldName.getValue(), getNamesAsList(), getValuesAsList(fieldCharacters));
+        game.savePrep(fieldName.getValue(), getNamesAsList(), getValuesAsList(fieldCharacters));
         Dialog dialogSaveAlert = makeDialogSaveAlert();
         dialogSaveAlert.open();
     }
