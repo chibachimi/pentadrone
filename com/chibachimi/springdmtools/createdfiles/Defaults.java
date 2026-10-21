@@ -16,23 +16,19 @@ public class Defaults {
     private final String name = "dmtools";
     private static Path headPath;
     private static Path gamesDir;
-
-    private static String downloads;
+    private static Path tablesDir;
 
     @Autowired
     ApplicationContext context;
 
+    // TODO Something might be wrong here.
     public Defaults(OsChecker checker) {
         os = checker.getOs();
 
-        downloads = String.valueOf(
-                Paths.get(
-                        System.getProperty("user.home"),
-                "Downloads"
-        ));
 
         headPath = defaultFileStorage();
         gamesDir = Paths.get(String.valueOf(headPath), "games");
+        tablesDir = Paths.get(headPath.toString(), "tables");
 
         if (headPath == null) {
             System.err.println("Fatal error finding defaultFileStorage on your operating system: " + os);
@@ -42,6 +38,7 @@ public class Defaults {
         }
         createNewDir(headPath);
         createNewDir(gamesDir);
+        createNewDir(tablesDir);
     }
 
     private Path defaultFileStorage() {
@@ -78,6 +75,18 @@ public class Defaults {
     }
 
     public static String getDownloadsAsString() {
-        return downloads;
+        return String.valueOf(
+                Paths.get(
+                        System.getProperty("user.home"),
+                        "Downloads"
+                ));
+    }
+
+    public static String getHeadPathAsString() {
+        return String.valueOf(headPath);
+    }
+
+    public static String getTablesAsString() {
+        return String.valueOf(tablesDir);
     }
 }

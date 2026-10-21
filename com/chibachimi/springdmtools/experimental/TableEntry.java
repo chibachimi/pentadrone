@@ -1,28 +1,45 @@
 package com.chibachimi.springdmtools.experimental;
 
-// TODO Simple, should have two strings for now
 public class TableEntry {
-    String entryOne;
-    String entryTwo;
+    String entryDice;
+    String[] entries;
 
-    public TableEntry(String e1, String e2) {
-        this.entryOne = e1;
-        this.entryTwo = e2;
+    int counter = 0;
+
+    public TableEntry(String e1, String[] e2) {
+        this.entryDice = e1;
+        this.entries = e2;
     }
 
-    public String getEntryOne() {
-        return entryOne;
+    public TableEntry() {
+        this.entryDice = "";
+        this.entries = new String[]{};
     }
 
-    public void setEntryOne(String entryOne) {
-        this.entryOne = entryOne;
+    public String getEntryDice() {
+        return entryDice;
     }
 
-    public String getEntryTwo() {
-        return entryTwo;
+    public void setEntryDice(String entryDice) {
+        this.entryDice = entryDice;
     }
 
-    public void setEntryTwo(String entryTwo) {
-        this.entryTwo = entryTwo;
+    public String[] getEntries() {
+        return entries;
+    }
+
+    public void setEntries(String[] entries) {
+        this.entries = entries;
+    }
+
+    // TODO Needs a redo with TableNode getEntries()
+    public String getEntry() {
+        String copy = entries[counter];
+
+        if (counter < entries.length) {
+            counter += 1;
+        }
+
+        return copy;
     }
 }
